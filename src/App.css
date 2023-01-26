@@ -1,3 +1,7 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -11,6 +15,37 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.output-box-enter {
+  opacity: 0;
+}
+
+.output-box {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.heading {
+  font-size: 72px; /* increase the font-size */
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .App-header {
