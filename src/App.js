@@ -21,15 +21,6 @@ const InputContainer = styled.div`
   }
 `;
 
-<CSSTransition
-  in={outputBoxVisible}
-  timeout={300}
-  classNames="output-box"
-  unmountOnExit
->
-  <OutputBox>{displayValue}</OutputBox>
-</CSSTransition>
-
 const OutputBox = styled(animated.div)`
   background: #ffffff;
   padding: 20px;
@@ -38,8 +29,6 @@ const OutputBox = styled(animated.div)`
   box-shadow: 2px 2px 10px #cccccc;
 `;
 
-const [outputBoxVisible, setOutputBoxVisible] = useState(false);
-
 const StyledButton = styled.button`
   background: #000000;
   color: #fff;
@@ -47,38 +36,28 @@ const StyledButton = styled.button`
   border-radius: 10px;
   border: none;
   outline: none;
-  &:hover{
+  margin-left: 5px;
+  &:hover {
     background: #555555;
   }
 `;
 
-const [displayValue, setDisplayValue] = useState('');
-const [isOutputVisible, setIsOutputVisible] = useState(false);
-
-function handleSubmit(event) {
-  event.preventDefault();
-  setIsOutputVisible(true);
-  setDisplayValue(inputValue);
-  setInputValue('');
-}
-
-// between input box and submit button, add 5px of horizontal margin
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [displayValue, setDisplayValue] = useState('');
+  const [isOutputVisible, setIsOutputVisible] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsOutputVisible(true);
     setDisplayValue(inputValue);
     setInputValue('');
   }
 
-
-
-return (
+  return (
     <InputContainer>
-    <div className="heading">TEST</div>
-    <div className="center">
+      <div className="heading">TEST</div>
+      <div className="center">
         <form onSubmit={handleSubmit}>
           <input
             value={inputValue}
@@ -91,13 +70,9 @@ return (
             {displayValue}
           </OutputBox>
         )}
-    </div>
+      </div>
     </InputContainer>
-);
-
-
+  );
 }
 
-
 export default App;
-
