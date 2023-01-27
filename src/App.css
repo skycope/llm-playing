@@ -2,8 +2,21 @@
   font-family: 'Open Sans', sans-serif;
 }
 
-.App {
-  text-align: center;
+
+
+.ball-container {
+  position: bottom;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* styling for ball */
+.ball {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: bottom;
+  margin: 10px;
 }
 
 /* additional styles */
@@ -14,7 +27,6 @@
   align-items: center;
   height: 100vh;
 }
-
 
 .heading {
   font-size: 72px;

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 
-
 // onChange is a prop that is passed to the SplitButton component
 // It is a function that is called when the input value changes
 
@@ -21,13 +20,16 @@ const SplitButton = ({ onClick, onKeyDown }) => {
 
 
 function App() {
-  const [backgroundColor, setBackgroundColor] = useState('');
+  const [ball1Color, setBall1Color] = useState('');
+  const [ball2Color, setBall2Color] = useState('');
   const [setIsInputFilled] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const randomColor = getRandomColor();
-    setBackgroundColor(randomColor);
+    const randomColor1 = getRandomColor();
+    const randomColor2 = getRandomColor();
+    setBall1Color(randomColor1);
+    setBall2Color(randomColor2);
   }
 
   const handleKeyDown = (event) => {
@@ -54,9 +56,14 @@ function App() {
   }
 
   return (
-    <div className="App center" style={{ backgroundColor, height: '100vh', width: '100vw' }}>
+    <div className="App center" style={{ height: '100vh', width: '100vw' }}>
       <h1 className="heading">How are you feeling?</h1>
       <SplitButton onClick={handleSubmit} onKeyDown={handleKeyDown} onInput={handleInput} />
+
+      <div className="ball-container" style={{ bottom: '0px' }}>
+        <div className="ball" style={{ backgroundColor: ball1Color, right: '0px' }}></div>
+        <div className="ball" style={{ backgroundColor: ball2Color, left: '0px' }}></div>
+      </div>
     </div>
   );
 }
