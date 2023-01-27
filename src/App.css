@@ -6,31 +6,7 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.output-box-enter {
-  opacity: 0;
-}
-
-.output-box {
-  animation: fadeIn 0.5s ease-in;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-
+/* additional styles */
 .center {
   display: flex;
   flex-direction: column;
@@ -39,35 +15,54 @@
   height: 100vh;
 }
 
+
 .heading {
-  font-size: 72px; /* increase the font-size */
+  font-size: 72px;
   text-align: center;
+  text-shadow: 1px 1px 0px white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* styling for split-button component */
+.split-button {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  border-radius: 20px;
+}
+
+.split-button__input {
+  height: 40px;
+  width: 300px;
+  border: 0.5px solid black;
+  border-radius: 12px 0 0 12px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* when there's no text in the split button input, i want this grey */
+
+.split-button__submit {
+  height: 40px;
+  width: 80px;
+  border: 0.5px solid black;
+  border-radius: 0 12px 12px 0;
+  background-color: black;
   color: white;
-}
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box}
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.split-button__submit:hover {
+  cursor: pointer;
+  background-color: #242424;
 }
