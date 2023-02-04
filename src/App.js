@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import GenerativeArt from './GenerativeArt';
 
 // onChange is a prop that is passed to the SplitButton component
 // It is a function that is called when the input value changes
@@ -26,6 +27,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // save the input value to a variable:
     const randomColor1 = getRandomColor();
     const randomColor2 = getRandomColor();
     setBall1Color(randomColor1);
@@ -55,17 +57,25 @@ function App() {
     return color;
   }
 
-  return (
-    <div className="App center" style={{ height: '100vh', width: '100vw' }}>
-      <h1 className="heading">How are you feeling?</h1>
-      <SplitButton onClick={handleSubmit} onKeyDown={handleKeyDown} onInput={handleInput} />
+  // put the <GenerativeArt /> part as a background
 
-      <div className="ball-container" style={{ bottom: '0px' }}>
-        <div className="ball" style={{ backgroundColor: ball1Color, right: '0px' }}></div>
-        <div className="ball" style={{ backgroundColor: ball2Color, left: '0px' }}></div>
+  return (
+    <>
+      <div style={{ position: 'fixed', zIndex: -1, width: '100vw', height: '100vh' }}>
+        <GenerativeArt />
       </div>
-    </div>
+      <div className="App center" style={{ height: '100vh', width: '100vw' }}>
+        <h1 className="heading"> How are you feeling? </h1>
+        <SplitButton onClick={handleSubmit} onKeyDown={handleKeyDown} onInput={handleInput} />
+        {/* <div className="ball-container" style={{ bottom: '0px' }}>
+          <div className="ball" style={{ backgroundColor: ball1Color, right: '0px' }}></div>
+          <div className="ball" style={{ backgroundColor: ball2Color, left: '0px' }}></div>
+        </div> */}
+      </div>
+    </>
   );
+  
+  
 }
 
 export default App;
