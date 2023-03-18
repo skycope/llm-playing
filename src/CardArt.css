@@ -1,0 +1,76 @@
+/* CardArt.css */
+.card-art-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px; /* Adjust the margin to control the space between the CardArt and input box */
+  }
+
+  .card-art-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  
+  .card-art-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  }
+  
+  .card-art-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .card-art-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  }
+  
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+.card-art {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+  
+  .color-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .color-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .color-description {
+    font-size: 14px;
+  }
+  

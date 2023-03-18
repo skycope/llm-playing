@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
 import GenerativeArt from './GenerativeArt';
+import CardArt from './CardArt';
+import './CardArt.css';
+import { CSSTransition } from 'react-transition-group';
+import ArtSketch from './ArtSketch';
 
-// onChange is a prop that is passed to the SplitButton component
-// It is a function that is called when the input value changes
 
 function onChange(event) {
   console.log(event.target.value);
 }
 
+const cardArtAnimationDuration = 300;
 
 const SplitButton = ({ onClick, onKeyDown }) => {
   return (
@@ -21,18 +24,34 @@ const SplitButton = ({ onClick, onKeyDown }) => {
 
 
 function App() {
-  const [ball1Color, setBall1Color] = useState('');
-  const [ball2Color, setBall2Color] = useState('');
-  const [setIsInputFilled] = useState(false);
+  const [currentColors, setCurrentColors] = useState({ ball1Color: '', ball2Color: '' });
+  // eslint disable-next-line
+  const [previousColors, setPreviousColors] = useState({ ball1Color: '', ball2Color: '' });
+  const [redraw, setRedraw] = useState(false);
+  const [showCardArt, setShowCardArt] = useState(null);
+  
+  const handleClose = () => {
+    setShowCardArt(null);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // save the input value to a variable:
     const randomColor1 = getRandomColor();
     const randomColor2 = getRandomColor();
-    setBall1Color(randomColor1);
-    setBall2Color(randomColor2);
-  }
+    setPreviousColors({ ball1Color: currentColors.ball1Color, ball2Color: currentColors.ball2Color });
+    setCurrentColors({ ball1Color: randomColor1, ball2Color: randomColor2 });
+  
+    if (showCardArt) {
+      setShowCardArt(false);
+      setTimeout(() => {
+        setShowCardArt(true);
+      }, cardArtAnimationDuration);
+    } else {
+      setShowCardArt(true);
+    }
+    setRedraw(!redraw);
+  };
+  
 
   const handleKeyDown = (event) => {
     if(event.key === 'Enter') {
@@ -42,9 +61,9 @@ function App() {
 
   const handleInput = (event) => {
     if (event.target.value) {
-      setIsInputFilled(true);
+      setShowCardArt(true);
     } else {
-      setIsInputFilled(false);
+      setShowCardArt(false);
     }
   }
 
@@ -56,8 +75,13 @@ function App() {
     }
     return color;
   }
-
-  // put the <GenerativeArt /> part as a background
+  // eslint-disable-next-line
+  const cardArtTransitionStyles = {
+    entering: { opacity: 0, transform: 'scale(0.9)' },
+    entered: { opacity: 1, transform: 'scale(1)' },
+    exiting: { opacity: 0, transform: 'scale(0.9)' },
+    exited: { opacity: 0, transform: 'scale(0.9)' },
+  };
 
   return (
     <>
@@ -67,15 +91,26 @@ function App() {
       <div className="App center" style={{ height: '100vh', width: '100vw' }}>
         <h1 className="heading"> How are you feeling? </h1>
         <SplitButton onClick={handleSubmit} onKeyDown={handleKeyDown} onInput={handleInput} />
-        {/* <div className="ball-container" style={{ bottom: '0px' }}>
-          <div className="ball" style={{ backgroundColor: ball1Color, right: '0px' }}></div>
-          <div className="ball" style={{ backgroundColor: ball2Color, left: '0px' }}></div>
-        </div> */}
+        <div className="card-art-placeholder">
+          <CSSTransition
+            in={showCardArt}
+            timeout={cardArtAnimationDuration}
+            classNames="card-art"
+            unmountOnExit
+            onEntered={() => setPreviousColors(currentColors)}
+          >
+            <CardArt
+              key={`${currentColors.ball1Color}-${currentColors.ball2Color}`}
+              ball1Color={currentColors.ball1Color}
+              ball2Color={currentColors.ball2Color}
+              onClose={handleClose}
+              redraw={redraw}
+            />
+          </CSSTransition>
+        </div>
       </div>
     </>
   );
-  
-  
 }
 
 export default App;

@@ -7,25 +7,29 @@ const GenerativeArt = () => {
 
   useEffect(() => {
     new p5(p => {
-      const rows = 60;
-      const cols = 60;
-      const red_value = Math.floor(Math.random() * 256);
-      const green_value = Math.floor(Math.random() * 256);
-      const blue_value = Math.floor(Math.random() * 256);
+      const rows = 100;
+      const cols = 100;
+      const red_1_value = Math.floor(Math.random() * 256);
+      const green_1_value = Math.floor(Math.random() * 256);
+      const blue_1_value = Math.floor(Math.random() * 256);
+
+      const red_2_value = Math.floor(Math.random() * 256);
+      const green_2_value = Math.floor(Math.random() * 256);
+      const blue_2_value = Math.floor(Math.random() * 256);
 
       let points;
 
       p.setup = function() {
         const canvas = p.createCanvas(window.innerWidth, window.innerHeight);
         canvas.parent(sketchRef.current);
-        p.background(255, 83, 0, 100);
+        p.background('black');
         points = [];
         for (let i = 0; i < rows; i++) {
           points[i] = [];
           for (let j = 0; j < cols; j++) {
             points[i][j] = {
-              x: i * p.width / rows,
-              y: j * p.height / cols,
+              x: i * (p.width / rows)+(Math.floor(Math.random() * (20) ) - 10),
+              y: j * (p.height / cols)+(Math.floor(Math.random() * (20) ) - 10),
             };
           }
         }
@@ -37,15 +41,19 @@ const GenerativeArt = () => {
             const point = points[i][j];
             const x = point.x;
             const y = point.y;
-            const angle = p.noise(x * 0.01, y * 0.01, p.frameCount * 0.01) * p.TWO_PI;
+            const angle = p.noise(x * 0.005, y * 0.005, p.frameCount * 0.0) * p.TWO_PI*2;
             const vx = p.cos(angle);
             const vy = p.sin(angle);
             point.x += vx;
             point.y += vy;
             point.x = p.constrain(point.x, 0, p.width);
             point.y = p.constrain(point.y, 0, p.height);
-            p.stroke(255, 214, 0, 40);
-            p.strokeWeight(1);
+            // set point colour based on position
+            const red_value = p.map(point.x, 0, p.width, red_1_value, red_2_value);
+            const green_value = p.map(point.y, 0, p.height, green_1_value, green_2_value);
+            const blue_value = p.map(point.x, 0, p.width, blue_1_value, blue_2_value);
+            p.stroke(red_value, green_value, blue_value, 100);
+            p.strokeWeight(Math.random()*0.5+1);
             p.line(x, y, point.x, point.y);
           }
         }
